@@ -5,7 +5,6 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
-
 models = {
  "SGDClassifier":"newmodel/MODEL/SGDClassifier_model.pkl",
  "CatBoostClassifier":"newmodel/MODEL/CatBoostClassifier_model.pkl",
@@ -48,7 +47,7 @@ def predictnew(filename,model):
     df=pd.read_csv("scraper/FILE/"+filename)
 
     df['text'] = df['review_text'].str.replace('\n', ' ')
-    
+    df['text'] = df['text'].fillna(' ')
     df['text'] = punctuation_to_features(df, 'text')
     
     df['tokenized'] = df.apply(lambda x: tokenize(x['text']), axis=1)
@@ -78,3 +77,4 @@ def predictnew(filename,model):
     df.to_csv("predict/"+filename)
     return df
     
+#predictnew("VGRASSP_reviews.csv",10)

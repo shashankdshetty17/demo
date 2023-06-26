@@ -1,6 +1,6 @@
 import sys
 import tkinter as tk
-from tkinter import ttk
+from tkinter import  ttk
 from tkinter.scrolledtext import ScrolledText
 import string
 import requests
@@ -182,29 +182,40 @@ def savefile(model):
 # Creating tkinter window
 window = tk.Tk()
 window.title("Review Scraper")
-window.geometry("1240x720")
-window.attributes('-fullscreen', True)
+window.attributes("-fullscreen", True)
 
+title_label = ttk.Label(window, text="Amazon", foreground="red", font=("Arial", 36, "bold"))
+title_label.pack(pady=5)
 # Creating URL label and entry
-url_label = ttk.Label(window, text="Enter Amazon product URL:")
-url_label.pack()
-url_entry = ttk.Entry(window, width=360)
+url_label = ttk.Label(window, text="Enter Amazon product URL:", foreground="black", font=("Arial", 16, "bold"))
+url_label.pack(pady=10)
+url_entry = ttk.Entry(window, width=60)
 url_entry.pack()
 
 # Creating model label and entry
-model_label = ttk.Label(window, text="Enter model number (1-5):")
-model_label.pack()
-model_entry = ttk.Entry(window, width=360)
+model_label = ttk.Label(window, text="Enter model number (1-10):", foreground="black", font=("Arial", 16, "bold"))
+model_label.pack(pady=10)
+model_entry = ttk.Entry(window, width=60)
 model_entry.pack()
 
 # Creating submit button
-submit_button = ttk.Button(window, text="Submit", command=run_code)
-submit_button.pack()
-# Creating output text widget
-output_text = ScrolledText(window, width=960, height=600)
-output_text.pack()
+submit_button = ttk.Button(window, text="Submit", command=run_code, style="Red.TButton")
+submit_button.pack(pady=10)
 
+# Creating output text widget with automatic scrolling
+output_text = ScrolledText(window, width=160, height=35, bg="white", fg="black", insertbackground="black", font=("Courier New", 10))
+output_text.pack(pady=10)
 
+def print_to_widget(*args, **kwargs):
+    output_text.insert(tk.END, *args, **kwargs)
+    output_text.see(tk.END)  # Auto-scroll to the latest output
+
+# Configure stdout to redirect to the output_text widget
+sys.stdout.write = print_to_widget
+
+# Define custom style for the submit button
+style = ttk.Style()
+style.configure("Red.TButton", foreground="red", font=("Arial", 12, "bold"))
 
 # Run tkinter event loop
 window.mainloop()
