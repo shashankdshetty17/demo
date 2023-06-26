@@ -193,7 +193,7 @@ url_entry = ttk.Entry(window, width=60)
 url_entry.pack()
 
 # Creating model label and entry
-model_label = ttk.Label(window, text="Enter model number (1-10):", foreground="black", font=("Arial", 16, "bold"))
+model_label = ttk.Label(window, text="Enter model number (1-10ee):", foreground="black", font=("Arial", 16, "bold"))
 model_label.pack(pady=10)
 model_entry = ttk.Entry(window, width=60)
 model_entry.pack()
